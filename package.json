@@ -1,0 +1,12 @@
+{
+  "name": "api-treinos",
+  "version": "1.0.0",
+  "description": "API do Diario de Treinos - Back-End I",
+  "main": "servidor.js",
+  "scripts": {
+    "start": "node servidor.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

@@ -1,0 +1,92 @@
+### ============================================================
+### testes.http - o contrato da API
+### ============================================================
+### Abra este arquivo no VS Code com a extensao REST Client e
+### clique em "Send Request" em cada bloco.
+### Voce terminou a aula quando TODAS responderem o status certo.
+### ============================================================
+
+@url = http://localhost:3000
+
+
+### 1 - Listar todos os treinos            -> espera 200 e um array
+GET {{url}}/treinos
+
+
+### 2 - Criar um treino                    -> espera 201
+POST {{url}}/treinos
+Content-Type: application/json
+
+{
+    "nome": "Peito e triceps",
+    "duracao": 60
+}
+
+
+### 3 - Criar outro treino                 -> espera 201
+POST {{url}}/treinos
+Content-Type: application/json
+
+{
+    "nome": "Costas e biceps",
+    "duracao": 45
+}
+
+
+### 4 - Buscar o treino 1                  -> espera 200
+GET {{url}}/treinos/1
+
+
+### 5 - Buscar um treino que nao existe    -> espera 404
+GET {{url}}/treinos/99999
+
+
+### 6 - Criar sem o nome                   -> espera 400
+POST {{url}}/treinos
+Content-Type: application/json
+
+{
+    "duracao": 30
+}
+
+
+### 7 - Criar com duracao invalida         -> espera 400
+POST {{url}}/treinos
+Content-Type: application/json
+
+{
+    "nome": "Corrida",
+    "duracao": -5
+}
+
+
+### 8 - Alterar o treino 1                 -> espera 200
+PUT {{url}}/treinos/1
+Content-Type: application/json
+
+{
+    "nome": "Peito, triceps e ombro",
+    "duracao": 75
+}
+
+
+### 9 - Alterar um treino que nao existe   -> espera 404
+PUT {{url}}/treinos/99999
+Content-Type: application/json
+
+{
+    "nome": "Qualquer",
+    "duracao": 10
+}
+
+
+### 10 - Apagar o treino 2                 -> espera 204 (sem corpo)
+DELETE {{url}}/treinos/2
+
+
+### 11 - Apagar um treino que nao existe   -> espera 404
+DELETE {{url}}/treinos/99999
+
+
+### 12 - Listar de novo pra conferir       -> espera 200
+GET {{url}}/treinos

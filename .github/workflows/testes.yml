@@ -1,0 +1,44 @@
+# ============================================================
+# O semaforo
+# ============================================================
+# Roda a cada push. Pega os testes oficiais do repositorio de
+# referencia do professor e roda contra o seu codigo.
+# Voce nao precisa mexer neste arquivo.
+# ============================================================
+
+name: Testes da API
+
+on: push
+
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pega o codigo do aluno
+        uses: actions/checkout@v4
+
+      - name: Instala o Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instala as dependencias
+        run: npm install
+
+      - name: Baixa os testes oficiais
+        uses: actions/checkout@v4
+        with:
+          repository: Srdiegoibs/backend-i-referencia
+          path: .testes-oficiais
+
+      - name: Roda os testes ate a aula declarada no arquivo AULA
+        run: |
+          AULA=$(tr -d '[:space:]' < AULA)
+          echo "Testando ate a aula $AULA"
+          for n in $(seq 2 "$AULA"); do
+            arquivo=$(printf ".testes-oficiais/testes/aula%02d.test.js" "$n")
+            if [ -f "$arquivo" ]; then
+              echo "--- aula $n ---"
+              node --test "$arquivo"
+            fi
+          done
