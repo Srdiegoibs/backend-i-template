@@ -12,6 +12,9 @@ on: push
 
 jobs:
   testar:
+    # No proprio template o codigo esta vazio de proposito,
+    # entao nao faz sentido rodar os testes aqui.
+    if: github.repository != 'Srdiegoibs/backend-i-template'
     runs-on: ubuntu-latest
     steps:
       - name: Pega o codigo do aluno
